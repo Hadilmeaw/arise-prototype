@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(wsl -d Ubuntu-20.04 -- /home/ev04/v2/sts-feedback-system-main/venv-linux/bin/python -V)",
+      "PowerShell(wsl -d Ubuntu-20.04 -- /home/ev04/v2/sts-feedback-system-main/venv-linux/bin/python -c \"import PyQt6, PyQt6.QtCore as c; print\\('PyQt6 ok', c.QT_VERSION_STR\\)\")"
+    ]
+  }
+}

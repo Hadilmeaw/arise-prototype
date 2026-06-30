@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ARISE — D2.2 prototype</title>
+  <meta name="description" content="ARISE Coach and Therapist prototype, accompanying the D2.2 UI/UX Specifications deliverable." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%230E1F3C%22/><text x=%2216%22 y=%2222%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2214%22 font-weight=%22700%22 fill=%22%232DA39A%22>A</text></svg>" />
+  <style>
+    :root {
+      --navy:   #0E1F3C;
+      --navy-2: #18305A;
+      --ink:    #1A2433;
+      --grey:   #5C6A82;
+      --soft:   #F6F8FB;
+      --line:   #E2E7EE;
+      --teal:   #2DA39A;
+      --teal-d: #1C6F6A;
+      --mint:   #9BE5C8;
+      --coral:  #FFB6A6;
+      --amber:  #F2C879;
+      --rose:   #FF7A88;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Calibri', 'Segoe UI', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--soft);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+      color: white;
+      padding: 56px 28px 64px;
+    }
+    .hero-inner {
+      max-width: 1080px; margin: 0 auto;
+    }
+    .crumbs {
+      font-size: 12px; letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.62);
+      margin-bottom: 14px;
+    }
+    .crumbs strong { color: var(--mint); font-weight: 700; }
+    h1 {
+      font-size: 44px; font-weight: 300;
+      letter-spacing: -0.8px; margin: 0 0 14px;
+      line-height: 1.1;
+    }
+    h1 .mark { color: var(--mint); font-weight: 700; letter-spacing: 0; }
+    .lede {
+      font-size: 17px; font-weight: 300;
+      max-width: 680px; color: rgba(255,255,255,0.86);
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 18px;
+      margin-top: 22px; font-size: 12px;
+      color: rgba(255,255,255,0.72);
+    }
+    .hero-meta span { display: flex; gap: 6px; }
+    .hero-meta strong { color: white; font-weight: 600; }
+
+    /* ---------- CTA cards ---------- */
+    .ctas {
+      max-width: 1080px; margin: -36px auto 56px;
+      padding: 0 28px;
+      display: grid; gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+    .cta {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      box-shadow: 0 16px 40px rgba(14, 31, 60, 0.08);
+      display: flex; flex-direction: column;
+      transition: transform 160ms, box-shadow 160ms;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 48px rgba(14, 31, 60, 0.12);
+    }
+    .cta-tag {
+      font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase;
+      font-weight: 700;
+    }
+    .cta-tag.coach     { color: var(--teal); }
+    .cta-tag.therapist { color: var(--navy); }
+    .cta h2 {
+      font-size: 24px; font-weight: 700;
+      margin: 8px 0 10px;
+      color: var(--navy);
+    }
+    .cta p {
+      margin: 0 0 18px;
+      color: var(--grey); font-size: 14.5px;
+      flex: 1;
+    }
+    .cta-creds {
+      background: var(--soft);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12.5px; color: var(--grey);
+      margin-bottom: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .cta-creds strong { color: var(--navy); font-weight: 700; }
+    .cta-actions { display: flex; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-size: 14px; font-weight: 700;
+      border: 1.5px solid transparent;
+      cursor: pointer; font-family: inherit;
+      text-decoration: none;
+      transition: background 140ms, color 140ms, border-color 140ms;
+    }
+    .btn-primary {
+      background: var(--navy); color: white;
+    }
+    .btn-primary:hover { background: var(--teal-d); text-decoration: none; }
+    .btn-secondary {
+      background: white; color: var(--navy);
+      border-color: var(--line);
+    }
+    .btn-secondary:hover {
+      border-color: var(--navy); text-decoration: none;
+    }
+    .arrow { font-size: 13px; }
+
+    /* ---------- Sections ---------- */
+    section { padding: 48px 28px; }
+    section .inner { max-width: 1080px; margin: 0 auto; }
+    h3 {
+      font-size: 20px; font-weight: 700;
+      color: var(--navy); margin: 0 0 18px;
+      letter-spacing: -0.2px;
+    }
+    h3 .h3-sub {
+      font-weight: 400; color: var(--grey);
+      font-size: 14px; margin-left: 8px;
+    }
+    .grid-2 {
+      display: grid; gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+
+    /* ---------- Palette ---------- */
+    .palette-row {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .swatch {
+      display: flex; flex-direction: column;
+      width: 86px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .swatch .chip { height: 56px; }
+    .swatch .meta {
+      padding: 6px 8px;
+      background: white;
+      font-size: 10.5px;
+      color: var(--grey);
+    }
+    .swatch .meta strong {
+      display: block; color: var(--navy); font-weight: 700;
+      font-size: 11px;
+    }
+    .palette-card {
+      background: white; border: 1px solid var(--line);
+      border-radius: 14px; padding: 20px 22px;
+    }
+    .palette-coach { background: #1b1f2b; color: #F3EBE0; }
+    .palette-coach h3 { color: #F3EBE0; }
+    .palette-coach .swatch { border-color: rgba(255,255,255,0.18); }
+    .palette-coach .swatch .meta {
+      background: rgba(255,255,255,0.06); color: rgba(255,245,230,0.7);
+    }
+    .palette-coach .swatch .meta strong { color: #F3EBE0; }
+
+    /* ---------- Screen grid ---------- */
+    .screens {
+      display: grid; gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .shot {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--grey); font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
+    .shot img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+    }
+    .shot.empty {
+      background: repeating-linear-gradient(
+        45deg, var(--soft), var(--soft) 8px,
+        white 8px, white 16px);
+    }
+    .shot-caption {
+      font-size: 11px; color: var(--grey);
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* ---------- Disclaimer ---------- */
+    .disclaimer {
+      background: #FFF8E8;
+      border: 1px solid #F2C879;
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #6B4F00;
+      font-size: 13px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .disclaimer .icon {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      background: #F2C879; color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.72);
+      padding: 32px 28px;
+      font-size: 12.5px;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 16px 32px;
+      justify-content: space-between; align-items: center;
+    }
+    footer strong { color: white; font-weight: 700; }
+    footer a { color: var(--mint); }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 32px; }
+      .hero { padding: 36px 22px 48px; }
+      section { padding: 36px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="crumbs">ARISE · WP2 · Deliverable <strong>D2.2</strong></div>
+      <h1><span class="mark">ARISE</span> prototype</h1>
+      <p class="lede">
+        Two interactive web applications accompanying the D2.2 UI/UX
+        Specifications. The Coach guides the patient through a Sit-to-Stand
+        session with live skeleton feedback. The Therapist dashboard
+        gives clinicians caseload, sessions, and replay tools.
+      </p>
+      <div class="hero-meta">
+        <span><strong>Status</strong> Phase 1 prototype</span>
+        <span><strong>Stack</strong> React 19, Vite, MediaPipe Pose</span>
+        <span><strong>Persistence</strong> Browser localStorage (no back-end yet)</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="ctas">
+    <div class="cta">
+      <div class="cta-tag coach">Patient-facing</div>
+      <h2>Coach app</h2>
+      <p>
+        Full-screen calm surface with live skeleton overlay, automatic
+        calibration, real-time corrective feedback, day-grouped history,
+        and per-device settings. Built for the acquisition node in the
+        clinical lab.
+      </p>
+      <div class="cta-creds">
+        <strong>Demo login:</strong> any Patient ID · any password
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary"
+           href="https://arise-coach.vercel.app"
+           target="_blank" rel="noopener">
+          Open Coach <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="cta-tag therapist">Clinician-facing</div>
+      <h2>Therapist app</h2>
+      <p>
+        Desktop dashboard with caseload, per-patient charts, session
+        replay with rep-level scrub bar, editable session notes,
+        and longitudinal reports. Built for the clinician's browser.
+      </p>
+      <div class="cta-creds">
+        <strong>Demo login:</strong> any Clinician ID · any password
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary"
+           href="https://arise-therapist.vercel.app"
+           target="_blank" rel="noopener">
+          Open Therapist <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="inner">
+      <div class="disclaimer">
+        <span class="icon">i</span>
+        <div>
+          <strong>This is a Phase 1 prototype.</strong> It uses fake
+          fixture data and stores state in the browser only. No real
+          patient information is involved. Production (WP4) replaces
+          localStorage with the EU-region cloud back-end specified in
+          D2.1B and the on-device acquisition pipeline running on a
+          Jetson Orin with an RGB-D camera.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: white; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div class="inner">
+      <h3>Design system <span class="h3-sub">two palettes, one error vocabulary</span></h3>
+      <div class="grid-2">
+
+        <div class="palette-card palette-coach">
+          <h3>Coach</h3>
+          <p style="font-size: 13.5px; color: rgba(255,245,230,0.78); margin: 0 0 14px;">
+            Warm dark, calm, non-clinical. Sized for glanceable reading
+            from 1.5–3 m during physical effort.
+          </p>
+          <div class="palette-row">
+            <div class="swatch"><div class="chip" style="background:#1b1f2b"></div><div class="meta"><strong>Bg 1</strong>#1b1f2b</div></div>
+            <div class="swatch"><div class="chip" style="background:#29202e"></div><div class="meta"><strong>Bg 2</strong>#29202e</div></div>
+            <div class="swatch"><div class="chip" style="background:#F3EBE0"></div><div class="meta"><strong>Ink</strong>#F3EBE0</div></div>
+            <div class="swatch"><div class="chip" style="background:#9BE5C8"></div><div class="meta"><strong>Mint</strong>#9BE5C8</div></div>
+            <div class="swatch"><div class="chip" style="background:#FFB6A6"></div><div class="meta"><strong>Coral</strong>#FFB6A6</div></div>
+            <div class="swatch"><div class="chip" style="background:#F2C879"></div><div class="meta"><strong>Amber</strong>#F2C879</div></div>
+            <div class="swatch"><div class="chip" style="background:#FF7A88"></div><div class="meta"><strong>Rose</strong>#FF7A88</div></div>
+          </div>
+        </div>
+
+        <div class="palette-card">
+          <h3>Therapist</h3>
+          <p style="font-size: 13.5px; color: var(--grey); margin: 0 0 14px;">
+            Clean clinical light. Dense information, mouse and keyboard
+            input, charts everywhere.
+          </p>
+          <div class="palette-row">
+            <div class="swatch"><div class="chip" style="background:#F6F8FB"></div><div class="meta"><strong>Bg</strong>#F6F8FB</div></div>
+            <div class="swatch"><div class="chip" style="background:#FFFFFF; border: 1px solid var(--line);"></div><div class="meta"><strong>Surface</strong>#FFFFFF</div></div>
+            <div class="swatch"><div class="chip" style="background:#0E1F3C"></div><div class="meta"><strong>Navy</strong>#0E1F3C</div></div>
+            <div class="swatch"><div class="chip" style="background:#2DA39A"></div><div class="meta"><strong>Teal</strong>#2DA39A</div></div>
+            <div class="swatch"><div class="chip" style="background:#5DB3A4"></div><div class="meta"><strong>OK</strong>#5DB3A4</div></div>
+            <div class="swatch"><div class="chip" style="background:#E76A5A"></div><div class="meta"><strong>Alert</strong>#E76A5A</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="inner">
+      <h3>Coach screens <span class="h3-sub">five core + cross-cutting error</span></h3>
+      <div class="screens">
+        <div><div class="shot empty"><span>Login</span></div><div class="shot-caption">Login</div></div>
+        <div><div class="shot empty"><span>Idle</span></div><div class="shot-caption">Idle / Today</div></div>
+        <div><div class="shot empty"><span>Calibrate</span></div><div class="shot-caption">Calibration (auto-detect)</div></div>
+        <div><div class="shot empty"><span>Active</span></div><div class="shot-caption">Active session</div></div>
+        <div><div class="shot empty"><span>Done</span></div><div class="shot-caption">Post-session summary</div></div>
+        <div><div class="shot empty"><span>History</span></div><div class="shot-caption">History (day-grouped)</div></div>
+        <div><div class="shot empty"><span>Settings</span></div><div class="shot-caption">Settings</div></div>
+        <div><div class="shot empty"><span>Error</span></div><div class="shot-caption">Error state</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: white; border-top: 1px solid var(--line);">
+    <div class="inner">
+      <h3>Therapist screens <span class="h3-sub">caseload to session replay</span></h3>
+      <div class="screens">
+        <div><div class="shot empty"><span>Login</span></div><div class="shot-caption">Login</div></div>
+        <div><div class="shot empty"><span>Caseload</span></div><div class="shot-caption">Caseload (patient grid)</div></div>
+        <div><div class="shot empty"><span>Sessions</span></div><div class="shot-caption">Sessions, single patient</div></div>
+        <div><div class="shot empty"><span>Detail</span></div><div class="shot-caption">Session detail + replay</div></div>
+        <div><div class="shot empty"><span>Reports</span></div><div class="shot-caption">Reports (caseload)</div></div>
+        <div><div class="shot empty"><span>Settings</span></div><div class="shot-caption">Settings</div></div>
+      </div>
+      <p style="margin-top: 14px; font-size: 12px; color: var(--grey);">
+        Screenshot placeholders. Drop PNGs into <code>apps/landing/screens/</code>
+        and replace the empty tiles with <code>&lt;img&gt;</code> elements.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong>ARISE</strong> · A feasibility study on markerless
+        video-based biomechanical assessment of the Sit-to-Stand task
+        in healthy adults. FESR/ERDF HealthTech, Regione Liguria.
+        UNIGE × Innovina S.r.l.
+      </div>
+      <div class="footer-links">
+        <a href="https://arise-coach.vercel.app" target="_blank">Coach</a>
+        <a href="https://arise-therapist.vercel.app" target="_blank">Therapist</a>
+        <a href="mailto:team@innovina.it">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
