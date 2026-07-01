@@ -27,6 +27,8 @@ env/
 *.mp4
 *.mov
 *.avi
+# Except the small web-transcoded demo videos for the Coach mockup
+!apps/coach/public/*.mp4
 *.bag
 *.parquet
 *.h5
@@ -49,8 +51,9 @@ sts-feedback-system-main/
 *:Zone.Identifier
 *Zone.Identifier*
 
-# Coach demo videos (large mp4s)
-apps/coach/public/*.mp4
+# Coach demo videos: web-transcoded copies are checked in;
+# large raw originals live elsewhere.
+# apps/coach/public/*.mp4
 
 # ---------- OS / editors ----------
 .DS_Store
