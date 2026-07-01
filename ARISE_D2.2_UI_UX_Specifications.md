@@ -61,13 +61,11 @@ The Coach app is a single-page, single-screen flow. At any time exactly one of t
 
 Centered single card with two fields (Patient ID and password) and a Continue button. In production the patient ID is the pseudonymized code generated automatically by the Innovina acquisition software at session creation, following the CERA-approved scheme (e.g. `sbj4112`). The participant does not type or memorise this code. The credential exchanged at this screen in production is a short-lived token issued by the Therapist app when the clinician queues the session, not a long-term password. The mockup accepts any input so the screen can be exercised end to end without a back-end.
 
-![Coach login screen.](docs/d22_figures/coach_login.png)
 
 ### 5.2 Idle (Today)
 
 Soft greeting ("Hello.") with a one-paragraph lede, a single primary call to action ("I'm ready"), and a small instructional tip below. The breathing background ring provides a focal point and signals the device is alive without demanding attention. The header carries a discrete navigation pill (Today, History, Settings) and the patient identifier. This pill disappears during Calibration and Active to keep the body of the participant the only thing on screen.
 
-![Coach idle screen.](docs/d22_figures/coach_idle.png)
 
 ### 5.3 Calibration
 
@@ -80,9 +78,6 @@ A "Not yet" button (not a link) is always present in the side panel to return to
 
 The calibration step exists for three reasons. First, to give the pose model a few seconds of warm-up before it has to produce real-time output. Second, to capture the participant's individual segment lengths so the z-score personalisation described in the ARISE methodology can begin from rep 1. Third, to reassure the participant that the system has seen them before exercise begins.
 
-![Coach calibration, positioning step (auto-detection of frame and pose).](docs/d22_figures/coach_calibrate_pose.png)
-
-![Coach calibration, 5-second countdown.](docs/d22_figures/coach_calibrate_countdown.png)
 
 ### 5.4 Active session
 
@@ -90,9 +85,6 @@ Full-bleed video on the left occupying most of the screen with skeleton overlay.
 
 Feedback is presented as transient, road-sign-style cards centered over the body for about 4 seconds when a flag is raised, with an animated corrective arrow attached to the relevant joint. A clean rep triggers a small mint check overlay. No metric or technical detail (joint angle, deviation %, z-score) is shown on this screen. The surface is intentionally non-clinical to keep the participant in the body, not in the data.
 
-![Coach active session, skeleton overlay and HUD.](docs/d22_figures/coach_active.png)
-
-![Coach active session, fault card with corrective arrow.](docs/d22_figures/coach_active_fault.png)
 
 ### 5.5 Done (post-session summary)
 
@@ -100,7 +92,6 @@ Personal greeting ("Beautiful work.") and four tiles: reps, clean reps, form sco
 
 On entering this screen the session is persisted to the patient's local history under `arise.coach.history.<patientId>`. The persisted record includes timestamp, rep counts, score, duration, and the set of unique faults encountered.
 
-![Coach post-session summary.](docs/d22_figures/coach_done.png)
 
 ### 5.6 History
 
@@ -110,7 +101,6 @@ Within each day, sessions are listed most-recent first and explicitly labelled "
 
 The day grouping is important because rehabilitation protocols often involve multiple short sessions per day rather than one long one, and the previous flat list buried that pattern.
 
-![Coach history, day-grouped sessions with multi-session days.](docs/d22_figures/coach_history.png)
 
 ### 5.7 Settings
 
@@ -122,13 +112,11 @@ Three grouped cards.
 
 Settings auto-save on every change and display a discrete "Saved ✓" indicator.
 
-![Coach settings.](docs/d22_figures/coach_settings.png)
 
 ### 5.8 Error state (cross-cutting)
 
 A reusable `<ErrorState>` component is mounted by the Coach shell whenever an error is set. It overrides any active screen with a centered card containing a tone-appropriate icon (camera, network, pose, generic), a title, a one-paragraph body, and up to two actions (Retry, Dismiss). The four icon variants share a single visual treatment and use the Coach accent palette so the error state never feels foreign.
 
-![Coach error state, camera unavailable variant.](docs/d22_figures/coach_error.png)
 
 ## 6. Therapist application
 
@@ -140,7 +128,6 @@ The Therapist app uses a persistent left sidebar for navigation and a top breadc
 
 Centered single-card layout with clinician ID or email and password. Initials are derived from the entered identifier and used throughout the dashboard for author attribution on notes and modals.
 
-![Therapist login.](docs/d22_figures/therapist_login.png)
 
 ### 6.2 Caseload
 
@@ -153,9 +140,6 @@ The default landing view. Four sections, top to bottom.
 
 The cards are intentionally minimal. The detailed KPIs previously shown on the patient cards (sessions count, last FTSS, adherence %, open flags) are not absent. They are deferred to the Sessions view of that patient, where the therapist can see them in the context of session history and charts.
 
-![Therapist caseload, overview tiles and at-risk panel.](docs/d22_figures/therapist_caseload_top.png)
-
-![Therapist caseload, compact patient grid (click a name to open).](docs/d22_figures/therapist_caseload_grid.png)
 
 ### 6.3 Sessions
 
@@ -173,9 +157,6 @@ Two modes determined by the patient filter.
 
 This consolidation of the per-patient detail into Sessions removes the previous duplication where Caseload also acted as a patient-detail page.
 
-![Therapist Sessions, all-patients mode (day-grouped).](docs/d22_figures/therapist_sessions_all.png)
-
-![Therapist Sessions, single-patient mode with charts and notes.](docs/d22_figures/therapist_sessions_patient.png)
 
 ### 6.4 Session detail (modal)
 
@@ -188,7 +169,6 @@ Opened from any session row. The modal carries four sections.
 
 The replay scrub bar is the central interaction. It lets the therapist scrub directly to the moment of any flag without scrubbing through the whole video. The same coloring used in the donut and the timeline is reused for the scrub flag dots so the visual language is consistent across the dashboard.
 
-![Therapist session detail modal, replay player and rep chips.](docs/d22_figures/therapist_session_modal.png)
 
 ### 6.5 Reports
 
@@ -198,13 +178,11 @@ Two modes via segmented control.
 
 **Per patient.** Patient header plus the same four-KPI overview, daily quality chart, error mix donut, and stacked error timeline that appear in the Sessions per-patient view, scoped to one patient.
 
-![Therapist reports, caseload mode (heatmap, adherence, error mix).](docs/d22_figures/therapist_reports.png)
 
 ### 6.6 Settings
 
 Two cards. Profile (read-only initials and role) and Preferences (unit system, email alerts on red flags, weekly digest). Save triggers a toast.
 
-![Therapist settings.](docs/d22_figures/therapist_settings.png)
 
 ## 7. Interaction patterns
 
@@ -338,7 +316,7 @@ The source code lives in a public GitHub repository at https://github.com/Hadilm
 
 To run either React app locally: `cd apps/<app> && npm install && npm run dev`. Both apps are fully interactive in the browser without a back-end. The landing page is a single static HTML file and requires no build step.
 
-Screenshots of each screen referenced in Sections 5 and 6 are embedded above and stored under `docs/d22_figures/`.
+Rather than embedding still screenshots of each screen described in Sections 5 and 6, this deliverable relies on the live URLs above. Every screen is directly reachable and interactive in a browser, which better conveys behaviour that is inherently dynamic (skeleton overlay, fault feedback, scrub bar, day-grouped history). The two flow diagrams (Coach state machine, Therapist navigation map) in Sections 5 and 6 are the only embedded figures.
 
 ## 14. References
 
