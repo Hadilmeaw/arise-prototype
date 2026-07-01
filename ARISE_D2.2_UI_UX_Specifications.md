@@ -322,14 +322,23 @@ The skeleton overlay, pose pipeline, fault detection, feedback timing, scrub bar
 
 ## 13. Mockup artifacts
 
-The executable mockups are at:
+The prototype is deployed live on Vercel and reviewable directly from a browser without any local setup.
+
+| Application | Live URL | Demo credentials |
+|---|---|---|
+| Landing page | https://arise-prototype-kjt9.vercel.app | not required |
+| Coach app | https://arise-prototype.vercel.app | any Patient ID, any password |
+| Therapist app | https://arise-prototype-622c.vercel.app | any Clinician ID, any password |
+
+The source code lives in a public GitHub repository at https://github.com/Hadilmeaw/arise-prototype. Relevant paths inside the repository:
 
 - `apps/coach/src/App.jsx` and `apps/coach/src/App.css` — Coach app.
 - `apps/therapist/src/App.jsx`, `apps/therapist/src/data.js` and `apps/therapist/src/App.css` — Therapist app.
+- `apps/landing/index.html` — Landing page.
 
-To run either app: `cd apps/<app> && npm install && npm run dev`. Both apps are fully interactive in the browser without a back-end.
+To run either React app locally: `cd apps/<app> && npm install && npm run dev`. Both apps are fully interactive in the browser without a back-end. The landing page is a single static HTML file and requires no build step.
 
-Screenshots of each screen referenced in Sections 5 and 6 are stored in `docs/d2.2_mockups/` and are to be embedded in the docx companion to this document.
+Screenshots of each screen referenced in Sections 5 and 6 are embedded above and stored under `docs/d22_figures/`.
 
 ## 14. References
 
